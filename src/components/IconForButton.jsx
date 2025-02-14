@@ -1,12 +1,16 @@
+import spriteTrucks from "../assets/spriteTrucks.svg";
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line no-unused-vars
-const IconForButton = ({ iconId = "" }) => {
+
+const IconForButton = ({ id = "" }) => {
   return (
-    <div className="">
-      <svg className="" width="44" height="44">
-        <use className="" href={``}></use>
-        {/* <use className="" href={`${sprite}#${iconId}`}></use> */}
+    <div className="flex items-center justify-center">
+      <svg className="" width="32" height="32">
+        <use
+          className="w-[32px] h-[32px] fill-current"
+          href={`${spriteTrucks}#${id}`}
+        ></use>
       </svg>
     </div>
   );

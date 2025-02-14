@@ -1,0 +1,32 @@
+@layer components {
+  .hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+      url(../assets/images/hero-image@1x.webp);
+  }
+
+  .notActiveNavLink {
+    body {
+      font-family: "Inter", sans-serif; /* Основной шрифт */
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600; /* TailWind ==> font-semibold */
+
+      color: #101828;
+    }
+  }
+
+  .buttonFilters {
+    width: 112px;
+    min-height: 96px;
+    border: solid 1px var(--color-borderButtonColor);
+    border-radius: 12px;
+    padding: 6px 10px;
+
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .previewPicture {
+    width: 292px;
+  }
+}

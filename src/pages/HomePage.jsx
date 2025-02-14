@@ -4,7 +4,6 @@ import Hero from "../components/Hero";
 function HomePage() {
   return (
     <div>
-      <p>HomePage</p>
       <Hero />
       <Footer />
     </div>
