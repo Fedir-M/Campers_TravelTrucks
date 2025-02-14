@@ -2,13 +2,17 @@ import { Link } from "react-router";
 import Button from "./Button";
 import { useSelector } from "react-redux";
 import { trucksSelector } from "../redux/trucks/truckSelectors";
+
 import categoriesFeaturesLibrary from "../services/categoriesFeaturesLibrary";
 import CategoriesFeaturesLabels from "./CategoriesFeaturesLabels";
 // import { useEffect } from "react";
 // import { fetchTrucksData } from "../redux/trucks/trucksOperations";
 
-const TrucksList = () => {
+// eslint-disable-next-line react/prop-types
+const TrucksList = ({ visibleCount }) => {
   const trucks = useSelector(trucksSelector);
+
+  const visibleTrucks = trucks.slice(0, visibleCount);
 
   //   console.log(trucks);
 
@@ -16,7 +20,7 @@ const TrucksList = () => {
     <div>
       {/* <h1>Track List</h1> */}
       <ul className="flex flex-col gap-[6px] ">
-        {trucks.map((truck) => (
+        {visibleTrucks.map((truck) => (
           <li
             key={truck.id}
             className="flex p-[14px] border-[1px] rounded-[20px]"
@@ -48,9 +52,12 @@ const TrucksList = () => {
                 )}
               </ul>
 
-              <div className="mt-[24px] min-w-[173px] max-w-[250px] font-medium py-[16px] px-[48px] tracking-[-0.08px] leading-[1.5em] text-center text-textSecondary bg-ButtonPrimaryColor rounded-[200px] inline-flex items-center justify-center  hover:bg-linear-45 hover:from-[#3c9767] from-40% hover:to-[#ffc531] to-90% hover:shadow-lg hover:shadow-green-500/50 outline-0 focus:ring-2 focus:ring-green-500/50 focus:bg-ButtonHoverColor focus:shadow-lg focus:shadow-green-500/50 transition-colors duration-300 ease-in">
-                <Link to={`/catalog/${truck.id}`}>Show more</Link>
-              </div>
+              <Link
+                to={`/catalog/${truck.id}`}
+                className="mt-[24px] min-w-[173px] max-w-[250px] font-medium py-[16px] px-[48px] tracking-[-0.08px] leading-[1.5em] text-center text-textSecondary bg-ButtonPrimaryColor rounded-[200px] inline-flex items-center justify-center  hover:bg-linear-45 hover:from-[#3c9767] from-40% hover:to-[#ffc531] to-90% hover:shadow-lg hover:shadow-green-500/50 outline-0 focus:ring-2 focus:ring-green-500/50 focus:bg-ButtonHoverColor focus:shadow-lg focus:shadow-green-500/50 transition-colors duration-300 ease-in"
+              >
+                Show more
+              </Link>
             </div>
           </li>
         ))}
