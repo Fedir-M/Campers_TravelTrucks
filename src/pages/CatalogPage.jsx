@@ -18,7 +18,9 @@ import {
 const CatalogPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isLoadingSelector);
+  // const isActive = useSelector(isActiveSelector);
   const trucks = useSelector(trucksSelector);
+
   const [visibleCount, setVisibleCount] = useState(4);
 
   useEffect(() => {
@@ -28,6 +30,11 @@ const CatalogPage = () => {
   const handleLoadMore = (event) => {
     setVisibleCount((prevCount) => prevCount + 4);
     event.target.blur();
+
+    // const handleButtonActiveClick = () => {
+    //   dispatch(toggleButton());
+    //   if (onclick) return onClick();
+    // };
   };
 
   return (

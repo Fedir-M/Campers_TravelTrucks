@@ -9,6 +9,8 @@ import {
 } from "../redux/trucks/truckSelectors";
 
 import Loader from "./Loader";
+import spriteTrucks from "../assets/spriteTrucks.svg";
+import TheForm from "./TheForm";
 
 function CardDetails() {
   const { id } = useParams();
@@ -37,9 +39,37 @@ function CardDetails() {
     <main className=" px-[64px] py-[48px]">
       <section>
         <h1 className="text-[24px] leading-[32px]">{truckDetails.name}</h1>
-        <p className="mt-[8px]">Rating: {truckDetails.rating}</p>
-        <p>Location: {truckDetails.location}</p>
-        <strong className="text-[24px] font-medium leading-[32px]">
+        <div className="flex flex-wrap items-center mt-[8px]">
+          <svg
+            className={`w-[16px] h-[16px] ${
+              truckDetails.reviews && truckDetails.reviews.length > 0
+                ? "fill-starColor"
+                : "fill-bgBadgeColor"
+            }`}
+          >
+            <use
+              className="w-[32px] h-[32px] "
+              href={`${spriteTrucks}#iconStarGrey`}
+            ></use>
+          </svg>
+          <p className="font-normal ml-[4px]">
+            {truckDetails.rating}(
+            {`${truckDetails.reviews.length} Review${
+              truckDetails.reviews.length > 1 ? "s" : ""
+            }`}
+            )
+          </p>
+
+          <svg className="fill-textPrimary ml-[16px]" width="16" height="16">
+            <use
+              className="w-[32px] h-[32px] "
+              href={`${spriteTrucks}#iconMapGrey`}
+            ></use>
+          </svg>
+          <p className="font-normal ml-[4px]">{truckDetails.location}</p>
+        </div>
+
+        <strong className="text-[24px] font-medium leading-[32px] mt-[16px] block">
           &#8364; {truckDetails.price}
         </strong>
         {/*-------------- Trucks Gallery --------------*/}
@@ -68,19 +98,47 @@ function CardDetails() {
         )}
 
         {/*-------------- / Trucks Gallery --------------*/}
-        <p className="mt-[24px] line-clamp-1">{truckDetails.description}</p>
+        <p className="mt-[24px] line-clamp-1  text-textMonthPassed font-normal">
+          {truckDetails.description}
+        </p>
       </section>
       <section
-        className="flex mt-[60px] gap-[40px] border-b pb-[24px]"
+        className="flex mt-[60px] gap-[40px] border-b"
         style={{ borderColor: "var(--color-borderButtonColor)" }}
       >
-        <NavLink>Features</NavLink>
-        <NavLink>Reviews</NavLink>
-        {/*-------------- NavLink's Outlet --------------*/}
-        <Outlet />
+        <NavLink
+          to="features"
+          className={({ isActive }) =>
+            `text-[16px] font-medium pb-[8px] pb-[24px] ${
+              isActive
+                ? "border-b-[5px] border-heartColor mb-[-3px]"
+                : "border-b-[0px] border-borderButtonColor"
+            }`
+          }
+        >
+          Features
+        </NavLink>
+        <NavLink
+          to="reviews"
+          className={({ isActive }) =>
+            `text-[16px] font-medium pb-[8px] pb-[24px] ${
+              isActive
+                ? "border-b-[5px] border-heartColor mb-[-3px]"
+                : "border-b-[0px] border-borderButtonColor "
+            }`
+          }
+        >
+          Reviews
+        </NavLink>
       </section>
-      <section className="mt-[44px]">
-        <form action="">The Form</form>
+      {/*-------------- NavLink's Outlet --------------*/}
+      <section className="flex">
+        <div className="max-w-[631px]">
+          <Outlet />
+        </div>
+        <section className="mt-[44px]">
+          <TheForm />
+        </section>
       </section>
     </main>
   );

@@ -8,7 +8,7 @@ const IconForButton = ({ id = "" }) => {
     <div className="flex items-center justify-center">
       <svg className="" width="32" height="32">
         <use
-          className="w-[32px] h-[32px] fill-current"
+          className="w-[32px] h-[32px] "
           href={`${spriteTrucks}#${id}`}
         ></use>
       </svg>

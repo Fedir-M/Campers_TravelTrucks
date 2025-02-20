@@ -3,3 +3,7 @@ export const isLoadingSelector = (state) => state.trucks.isLoading;
 export const errorSelector = (state) => state.trucks.error;
 //---
 export const truckDetailsSelector = (state) => state.trucks.truckDetails;
+// ---
+export const isActiveSelector = (state) => state.buttonActive.isActive;
+// ---
+export const favoritesSelector = (state) => state.favorites.favorites;
