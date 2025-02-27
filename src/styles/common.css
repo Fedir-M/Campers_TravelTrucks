@@ -1,7 +1,17 @@
 @layer components {
   .hero {
+    height: clamp(9.625rem, -0.05rem + 48.38vw, 58rem);
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
       url(../assets/images/hero-image@1x.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .heroFilter {
+    height: clamp(9.625rem, -0.05rem + 48.38vw, 58rem);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .notActiveNavLink {
@@ -24,6 +34,10 @@
 
     font-weight: 500;
     cursor: pointer;
+  }
+
+  .buttonFiltersActive {
+    border: solid 2px var(--color-bgFooterColor);
   }
 
   .previewPicture {

@@ -7,7 +7,7 @@ const Reviews = () => {
 
   const reviews = truckDetails?.reviews || [];
   return (
-    <div>
+    <div className="mr-[40px]">
       <ul className="flex flex-col gap-[44px]">
         {reviews.map((review, ind) => (
           <li key={ind} className="max-w-[631px]">

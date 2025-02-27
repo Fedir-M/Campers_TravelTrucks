@@ -6,17 +6,24 @@ import {
   truckDetailsSelector,
   isLoadingSelector,
   errorSelector,
+  favoritesSelector,
 } from "../redux/trucks/truckSelectors";
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../redux/trucks/favoritesSlice";
 
 import Loader from "./Loader";
 import spriteTrucks from "../assets/spriteTrucks.svg";
 import TheForm from "./TheForm";
+import Button from "./Button";
 
 function CardDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const truckDetails = useSelector(truckDetailsSelector);
   const isLoading = useSelector(isLoadingSelector);
+  const favorites = useSelector(favoritesSelector);
   const error = useSelector(errorSelector);
 
   useEffect(() => {
@@ -26,6 +33,16 @@ function CardDetails() {
       dispatch(getTruckByID(id));
     }
   }, [dispatch, id]);
+
+  const isFavorite = truckDetails ? favorites.includes(truckDetails.id) : false;
+
+  const handleAddRemoveFavorites = (truckId) => {
+    if (favorites.includes(truckId)) {
+      dispatch(removeFromFavorites(truckId));
+    } else {
+      dispatch(addToFavorites(truckId));
+    }
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -38,7 +55,16 @@ function CardDetails() {
   return (
     <main className=" px-[64px] py-[48px]">
       <section>
-        <h1 className="text-[24px] leading-[32px]">{truckDetails.name}</h1>
+        <div className="flex justify-between">
+          <h1 className="text-[24px] leading-[32px]">{truckDetails.name}</h1>
+          <Button
+            onClick={() => handleAddRemoveFavorites(truckDetails.id)}
+            icon="iconHeartBlack"
+            className={`ml-[12px] w-[24px] h-[24px] ${
+              isFavorite ? "fill-heartColor" : "fill-textPrimary" //а тут было isActive, стало isFavorite
+            }`}
+          />
+        </div>
         <div className="flex flex-wrap items-center mt-[8px]">
           <svg
             className={`w-[16px] h-[16px] ${

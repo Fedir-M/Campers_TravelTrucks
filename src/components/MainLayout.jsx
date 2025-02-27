@@ -3,10 +3,10 @@ import Header from "./Header";
 
 function MainLayout() {
   return (
-    <div>
+    <>
       <Header />
       <Outlet />
-    </div>
+    </>
   );
 }
 

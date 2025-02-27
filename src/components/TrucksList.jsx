@@ -1,10 +1,7 @@
 import { Link } from "react-router";
 import Button from "./Button";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  favoritesSelector,
-  trucksSelector,
-} from "../redux/trucks/truckSelectors";
+import { favoritesSelector } from "../redux/trucks/truckSelectors";
 import {
   addToFavorites,
   removeFromFavorites,
@@ -13,6 +10,7 @@ import {
 import categoriesFeaturesLibrary from "../services/categoriesFeaturesLibrary";
 import CategoriesFeaturesLabels from "./CategoriesFeaturesLabels";
 import spriteTrucks from "../assets/spriteTrucks.svg";
+
 // //* connects with Stage-1
 // import { toggleButton } from "../redux/trucks/buttonActiveClickSlice";
 
@@ -20,14 +18,20 @@ import spriteTrucks from "../assets/spriteTrucks.svg";
 // import { fetchTrucksData } from "../redux/trucks/trucksOperations";
 
 // eslint-disable-next-line react/prop-types
-const TrucksList = ({ visibleCount }) => {
+const TrucksList = ({ visibleCount, filteredTrucks }) => {
   const dispatch = useDispatch();
-  const trucks = useSelector(trucksSelector);
   //* connects with Stage-1
   //   const buttonActiveState = useSelector(isActiveSelector);
   const favorites = useSelector(favoritesSelector);
 
-  const visibleTrucks = trucks.slice(0, visibleCount);
+  // eslint-disable-next-line react/prop-types
+  const visibleTrucks = filteredTrucks.slice(0, visibleCount);
+
+  // // eslint-disable-next-line react/prop-types
+  // filteredTrucks && filteredTrucks.length > 0
+  //   ? // eslint-disable-next-line react/prop-types
+  //     filteredTrucks.slice(0, visibleCount)
+  //   : trucks.slice(0, visibleCount);
 
   //   console.log(trucks);
   // ---------------------------------------------------------------------
@@ -59,7 +63,7 @@ const TrucksList = ({ visibleCount }) => {
           return (
             <li
               key={truck.id}
-              className="flex p-[14px] border-[1px] rounded-[20px]"
+              className="flex p-[14px] border-[1px] rounded-[20px] outline-0 focus:ring-2  focus:ring-textAccent hover:ring-1 hover:ring-textAccent"
               style={{ borderColor: "var(--color-borderButtonColor)" }}
             >
               <img

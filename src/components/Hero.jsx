@@ -6,10 +6,14 @@ import { Link } from "react-router";
 
 function Hero() {
   return (
-    <main className="max-w-[1440px] w-full h-screen bg-cover bg-center bg-no-repeat bg-[linear-gradient(to_right,rgba(0,0,0,0.8),rgba(0,0,0,0))]">
-      <div className="max-w-[1440px] w-full h-screen hero">
+    <section className="w-full relative hero">
+      {/* <div className="w-full h-full">
+        <img src={heroImage1x} alt="microbus in the wood" className="w-full" />
+        <div className="heroFilter w-full absolute left-0 top-0"></div>
+      </div> */}
+      <div className="absolute left-0 top-[50%] translate-y-[-50%]">
         <div className="flex flex-col pl-[64px]">
-          <h1 className="text-textSecondary mt-[260px] text-[48px]">
+          <h1 className="text-textSecondary text-[48px]">
             Campers of your dreams
           </h1>
           <strong className="text-textSecondary mt-[16px] text-[24px]">
@@ -23,7 +27,7 @@ function Hero() {
           </Link>
         </div>
       </div>
-    </main>
+    </section>
   );
 }
 

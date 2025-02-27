@@ -3,10 +3,12 @@ import Hero from "../components/Hero";
 
 function HomePage() {
   return (
-    <div>
-      <Hero />
+    <>
+      <main>
+        <Hero />
+      </main>
       <Footer />
-    </div>
+    </>
   );
 }
 
