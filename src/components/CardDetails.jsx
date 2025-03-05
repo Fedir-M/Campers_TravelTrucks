@@ -1,11 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getTruckByID } from "../redux/trucks/trucksOperations";
-import { useEffect } from "react";
-import { useParams, NavLink, Outlet } from "react-router";
+import { useEffect, useRef } from "react";
+import {
+  useParams,
+  NavLink,
+  Outlet,
+  useLocation,
+  // useNavigate,
+  Link,
+} from "react-router-dom";
 import {
   truckDetailsSelector,
   isLoadingSelector,
-  errorSelector,
+  // errorSelector,
   favoritesSelector,
 } from "../redux/trucks/truckSelectors";
 import {
@@ -24,7 +31,13 @@ function CardDetails() {
   const truckDetails = useSelector(truckDetailsSelector);
   const isLoading = useSelector(isLoadingSelector);
   const favorites = useSelector(favoritesSelector);
-  const error = useSelector(errorSelector);
+  // const error = useSelector(errorSelector);
+
+  const location = useLocation();
+  const history = location.state?.from;
+  const goBackBtn = useRef(history);
+
+  // const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Truck Details ==>", truckDetails);
@@ -36,13 +49,18 @@ function CardDetails() {
 
   const isFavorite = truckDetails ? favorites.includes(truckDetails.id) : false;
 
-  const handleAddRemoveFavorites = (truckId) => {
+  const handleToggleFavorites = (truckId) => {
     if (favorites.includes(truckId)) {
       dispatch(removeFromFavorites(truckId));
     } else {
       dispatch(addToFavorites(truckId));
     }
   };
+
+  // const handleGoBack = () => {
+  //   const previousState = location.state;
+  //   navigate(-1, { state: previousState });
+  // };
 
   if (isLoading) {
     return <Loader />;
@@ -54,11 +72,20 @@ function CardDetails() {
 
   return (
     <main className=" px-[64px] py-[48px]">
-      <section>
+      <Link
+        to={goBackBtn.current}
+        icon="iconCircleLeft"
+        // buttonLabel="GoBack"
+        // onClick={() => handleGoBack()}
+        className="inline-flex items-center space-x-[6px] cursor-pointer font-medium text-[30px] outline-0 hover:fill-ButtonHoverColor hover:text-ButtonHoverColor"
+      >
+        Go Back
+      </Link>
+      <section className="mt-[40px]">
         <div className="flex justify-between">
           <h1 className="text-[24px] leading-[32px]">{truckDetails.name}</h1>
           <Button
-            onClick={() => handleAddRemoveFavorites(truckDetails.id)}
+            onClick={() => handleToggleFavorites(truckDetails.id)}
             icon="iconHeartBlack"
             className={`ml-[12px] w-[24px] h-[24px] ${
               isFavorite ? "fill-heartColor" : "fill-textPrimary" //а тут было isActive, стало isFavorite

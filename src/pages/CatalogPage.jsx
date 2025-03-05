@@ -16,12 +16,16 @@ import {
 } from "../redux/trucks/truckSelectors";
 import InputFilter from "../components/InputFilter";
 import { applyFilters } from "../services/applyFilters";
+// import { useLocation, useNavigate } from "react-router-dom";
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isLoadingSelector);
   // const isActive = useSelector(isActiveSelector);
   const trucks = useSelector(trucksSelector);
+
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
   const initialFilterState = {
     location: "",
@@ -36,7 +40,7 @@ const CatalogPage = () => {
     microwave: false,
     gas: false,
     water: false,
-    form: [],
+
     Automatic: false,
     Petrol: false,
     Van: false,
@@ -45,17 +49,34 @@ const CatalogPage = () => {
   };
 
   const [visibleCount, setVisibleCount] = useState(4);
-  const [formInput, setFormInput] = useState(initialFilterState);
-  const [filteredTrucks, setFilteredTrucks] = useState([]);
-  const [submittedFilters, setSubmittedFilters] = useState(initialFilterState);
+  // const [formInput, setFormInput] = useState(initialFilterState);
+  const [formInput, setFormInput] = useState(
+    JSON.parse(localStorage.getItem("filterForm")) ?? initialFilterState
+  );
+  const [renderTrigger, setRenderTrigger] = useState(formInput);
+  const [filteredTrucks, setFilteredTrucks] = useState(trucks || []);
 
   useEffect(() => {
     dispatch(fetchTrucksData());
   }, [dispatch]);
 
   useEffect(() => {
-    setFilteredTrucks(trucks);
-  }, [trucks]);
+    const storageFilter = localStorage.getItem("filterForm");
+
+    if (storageFilter) {
+      const filtered = applyFilters(trucks, renderTrigger);
+
+      localStorage.setItem("filterForm", JSON.stringify(renderTrigger));
+      setFilteredTrucks(filtered);
+    } else {
+      const filtered = applyFilters(trucks, renderTrigger);
+      localStorage.setItem("filterForm", JSON.stringify(renderTrigger));
+
+      setFilteredTrucks(filtered);
+      setVisibleCount(4);
+      setFilteredTrucks(trucks);
+    }
+  }, [trucks, renderTrigger]);
 
   // const handleButtonActiveClick = () => {
   //   dispatch(toggleButton());
@@ -92,12 +113,15 @@ const CatalogPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Filters applied:", formInput);
-    console.log("Trucks before filtering:", trucks);
-    const filtered = applyFilters(trucks, formInput);
-    console.log("Filtered trucks:", filtered);
-    setFilteredTrucks(filtered);
+    setRenderTrigger(formInput);
+  };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    setFormInput(initialFilterState);
+    setFilteredTrucks(trucks);
     setVisibleCount(4);
+    e.target.blur();
   };
 
   return (
@@ -110,6 +134,7 @@ const CatalogPage = () => {
             name="location"
             placeholder="Location"
             onInputChange={handleInputChange}
+            value={formInput.location}
           />
           <p className="text-[#475467] font-medium leading-[24px] mt-[40px]">
             Filters
@@ -175,6 +200,13 @@ const CatalogPage = () => {
               buttonLabel="Search"
               type="submit"
               className="min-w-[173px] max-w-[250px] py-[16px] px-[48px] tracking-[-0.08px] leading-[1.5em] text-center text-textSecondary bg-ButtonPrimaryColor rounded-[200px] inline-flex items-center justify-center  hover:bg-linear-45 hover:from-[#3c9767] from-40% hover:to-[#ffc531] to-90% hover:shadow-lg hover:shadow-green-500/50 outline-0 focus:ring-2 focus:ring-green-500/50 focus:bg-ButtonHoverColor focus:shadow-lg focus:shadow-green-500/50 transition-colors duration-300 ease-in mt-[40px]"
+            />
+          </div>
+          <div className="flex items-center justify-center">
+            <Button
+              onClick={handleReset}
+              buttonLabel="Reset"
+              className="min-w-[173px] max-w-[250px] py-[12px] px-[48px] tracking-[-0.08px] leading-[1.5em] text-center text-textPrimary bg-bgPrimaryColor rounded-[12px] border border-borderButtonColor inline-flex items-center justify-center  hover:ring-heartColor hover:ring-1  outline-0 focus:ring-2  focus:ring-heartColor focus:shadow-lg  active:ring-0 active:shadow-[inset_0px_2px_5px_rgba(0,0,0,0.2)] active:shadow-textPlaceholder transition-all duration-200 ease-in-out mt-[40px]"
             />
           </div>
         </form>

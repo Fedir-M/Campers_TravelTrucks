@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Button from "./Button";
 import { useDispatch, useSelector } from "react-redux";
 import { favoritesSelector } from "../redux/trucks/truckSelectors";
@@ -18,7 +18,7 @@ import spriteTrucks from "../assets/spriteTrucks.svg";
 // import { fetchTrucksData } from "../redux/trucks/trucksOperations";
 
 // eslint-disable-next-line react/prop-types
-const TrucksList = ({ visibleCount, filteredTrucks }) => {
+const TrucksList = ({ visibleCount, filteredTrucks, formInput }) => {
   const dispatch = useDispatch();
   //* connects with Stage-1
   //   const buttonActiveState = useSelector(isActiveSelector);
@@ -76,7 +76,7 @@ const TrucksList = ({ visibleCount, filteredTrucks }) => {
                   <h2 className="text-[24px] leading-[32px]">{truck.name}</h2>
                   <div className="flex">
                     <strong className="text-[24px] font-medium leading-[32px]">
-                      &#8364; {truck.price}
+                      &#36; {truck.price}
                     </strong>
                     <Button
                       onClick={() => handleAddRemoveFavorites(truck.id)}
@@ -133,6 +133,7 @@ const TrucksList = ({ visibleCount, filteredTrucks }) => {
                 </ul>
                 <Link
                   to={`/catalog/${truck.id}`}
+                  state={{ from: "/catalog", filters: formInput }}
                   className="mt-[24px] min-w-[173px] max-w-[250px] font-medium py-[16px] px-[48px] tracking-[-0.08px] leading-[1.5em] text-center text-textSecondary bg-ButtonPrimaryColor rounded-[200px] inline-flex items-center justify-center  hover:bg-linear-45 hover:from-[#3c9767] from-40% hover:to-[#ffc531] to-90% hover:shadow-lg hover:shadow-green-500/50 outline-0 focus:ring-2 focus:ring-green-500/50 focus:bg-ButtonHoverColor focus:shadow-lg focus:shadow-green-500/50 transition-colors duration-300 ease-in"
                 >
                   Show more
