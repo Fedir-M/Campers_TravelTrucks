@@ -3,14 +3,14 @@ import spriteTrucks from "../assets/spriteTrucks.svg";
 // eslint-disable-next-line react/prop-types
 const CategoriesFeaturesLabels = ({ iconId, categoryLabel }) => {
   return (
-    <div className="inline-flex w-auto h-auto px-[18px] py-[12px] bg-bgBadgeColor rounded-[100px]">
-      <svg className="flex items-center " width="20" height="20">
-        <use
-          className="w-[20px] h-[20px] fill-current"
-          href={`${spriteTrucks}#${iconId}`}
-        ></use>
+    <div className="flex items-center w-auto h-auto px-[12px] py-[6px] md:px-[18px] md:py-[12px] bg-bgBadgeColor rounded-[100px]">
+      {/* <svg className="flex items-center w-[16px] h-[16px] md:w-[20px] md:h-[20px]"> */}
+      <svg className=" w-[14px] h-[14px] md:w-[20px] md:h-[20px]">
+        <use href={`${spriteTrucks}#${iconId}`}></use>
       </svg>
-      <p className="ml-[8px] font-medium leading-[20px]">{categoryLabel}</p>
+      <p className="ml-[8px] font-medium leading-[20px] text-[10px] md:text-[16px]">
+        {categoryLabel}
+      </p>
     </div>
   );
 };

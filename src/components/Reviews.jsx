@@ -7,10 +7,10 @@ const Reviews = () => {
 
   const reviews = truckDetails?.reviews || [];
   return (
-    <div className="mr-[40px]">
+    <div className="mr-[0px] md:mr-[20px] lg:mr-[40px]">
       <ul className="flex flex-col gap-[44px]">
         {reviews.map((review, ind) => (
-          <li key={ind} className="max-w-[631px]">
+          <li key={ind} className="max-w-[631px] px-[12px]">
             <div className="flex items-center mt-[56px]">
               <p className="flex items-center justify-center w-[60px] h-[60px] rounded-[60px] text-[24px] leading-[32px] text-heartColor bg-bgHeaderColor ">
                 {review.reviewer_name.charAt(0)}

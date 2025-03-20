@@ -7,3 +7,5 @@ export const truckDetailsSelector = (state) => state.trucks.truckDetails;
 export const isActiveSelector = (state) => state.buttonActive.isActive;
 // ---
 export const favoritesSelector = (state) => state.favorites.favorites;
+// ---
+export const isFilterOpenSelector = (state) => state.filterOpen.isOpen;

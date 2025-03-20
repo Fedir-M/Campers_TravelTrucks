@@ -5,7 +5,9 @@ function MainLayout() {
   return (
     <>
       <Header />
-      <Outlet />
+      <main className="pt-[74px]">
+        <Outlet />
+      </main>
     </>
   );
 }

@@ -14,6 +14,17 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.jsx">
+          window.tailwind = {
+        theme: {
+          screens: {
+            'sm': '320px',  // mob
+            'md': '768px',  // pad
+            'lg': '1024px', // small laptop
+            'xl': '1440px', // lapton
+          },
+        },
+      };
+    </script>
   </body>
 </html>
