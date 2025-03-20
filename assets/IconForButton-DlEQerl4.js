@@ -1,0 +1,1 @@
+import{j as s}from"./index-BL1WwVVU.js";import{s as i}from"./spriteTrucks-DsQvWTwW.js";const m=({id:r="",iconW:t="32px",iconH:o="32px",classSizeSVG:e})=>s.jsx("svg",{className:e,width:t,height:o,children:s.jsx("use",{href:`${i}#${r}`})});export{m as I};
